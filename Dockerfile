@@ -30,11 +30,14 @@ RUN wget -O /tmp/pandoc.tar.gz \
 	&& tar -xvf /tmp/pandoc.tar.gz --strip=1 -C /usr/local \
 	&& rm /tmp/pandoc.tar.gz
 
-RUN pip3 install \
+RUN apk add --no-cache \
+	python2 \
+	&& pip3 install \
 	pwntools \
 	requests \
 	python-lzo \
 	crcmod
+# python2 for unicorn
 # lzo-dev, python-lzo and crcmod for ubidump.py
 	
 RUN git clone https://github.com/bwall/HashPump.git \
