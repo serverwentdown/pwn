@@ -7,7 +7,6 @@ steps:
   settings:
     registry: registry.makerforce.io
     repo: registry.makerforce.io/ambrose/pwn
-    dockerfile: Dockerfile
     tags:
     - latest
     username:
