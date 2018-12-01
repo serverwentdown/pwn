@@ -5,11 +5,14 @@ USER root
 # required for pwntools
 RUN pip3 install --upgrade pip
 
+# capstone pip version (in pwntools) conflict with capstone distro version, so install pip version first
+RUN pip3 install capstone
+
 RUN apk add --no-cache \
 	libcrypto1.1@edge libssl1.1@edge radare2@community \
 	volatility \
 	john \
-	libffi-dev libressl-dev linux-headers python3-dev \
+	libffi-dev libressl-dev lzo-dev linux-headers python3-dev \
 	httpie \
 	jq \
 	socat \
@@ -19,20 +22,20 @@ RUN apk add --no-cache \
 	graphicsmagick \
 	testdisk \
 	squashfs-tools \
-	lzo-dev \
 	libpcap
 
 # required for pwntools
-RUN apk add --no-cache \
-	python2 \
-	&& pip3 install \
-	unicorn pandoc
+RUN wget -O /tmp/pandoc.tar.gz \
+	https://github.com/jgm/pandoc/releases/download/2.5/pandoc-2.5-linux.tar.gz \
+	&& tar -xvf /tmp/pandoc.tar.gz --strip=1 -C /usr/local \
+	&& rm /tmp/pandoc.tar.gz
 
 RUN pip3 install \
 	pwntools \
 	requests \
 	python-lzo \
 	crcmod
+# lzo-dev, python-lzo and crcmod for ubidump.py
 	
 RUN git clone https://github.com/bwall/HashPump.git \
 	&& cd HashPump \
@@ -59,9 +62,7 @@ RUN wget -O /usr/local/bin/ubidump.py \
 	
 RUN wget -O /tmp/sqlmap.tar.gz \
 	https://github.com/sqlmapproject/sqlmap/tarball/master \
-	&& mkdir -p /usr/local/lib/sqlmap \
-	&& cd /usr/local/lib/sqlmap \
-	&& tar -xvf /tmp/sqlmap.tar.gz --strip=1 \
+	&& tar -xvf /tmp/sqlmap.tar.gz --strip=1 -C /usr/local/lib/sqlmap \
 	&& rm /tmp/sqlmap.tar.gz \
 	&& ln -s /usr/local/lib/sqlmap/sqlmap.py /usr/local/bin/sqlmap
 	
