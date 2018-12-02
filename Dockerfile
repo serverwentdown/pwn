@@ -65,6 +65,7 @@ RUN wget -O /usr/local/bin/ubidump.py \
 	
 RUN wget -O /tmp/sqlmap.tar.gz \
 	https://github.com/sqlmapproject/sqlmap/tarball/master \
+	&& mkdir -p /usr/local/lib/sqlmap \
 	&& tar -xvf /tmp/sqlmap.tar.gz --strip=1 -C /usr/local/lib/sqlmap \
 	&& rm /tmp/sqlmap.tar.gz \
 	&& ln -s /usr/local/lib/sqlmap/sqlmap.py /usr/local/bin/sqlmap
