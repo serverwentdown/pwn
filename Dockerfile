@@ -77,4 +77,7 @@ RUN wget -O /usr/local/bin/apktool.jar \
 	https://raw.githubusercontent.com/iBotPeaches/Apktool/master/scripts/linux/apktool \
 	&& chmod +x /usr/local/bin/apktool.jar /usr/local/bin/apktool
 
+# utilities
+COPY bin/* /usr/local/bin/
+
 USER ambrose
