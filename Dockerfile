@@ -69,5 +69,12 @@ RUN wget -O /tmp/sqlmap.tar.gz \
 	&& tar -xvf /tmp/sqlmap.tar.gz --strip=1 -C /usr/local/lib/sqlmap \
 	&& rm /tmp/sqlmap.tar.gz \
 	&& ln -s /usr/local/lib/sqlmap/sqlmap.py /usr/local/bin/sqlmap
-	
+
+# requires JRE, but won't install
+RUN wget -O /usr/local/bin/apktool.jar \
+	https://bitbucket.org/iBotPeaches/apktool/downloads/apktool_2.3.4.jar \
+	&& wget -O /usr/local/bin/apktool \
+	https://raw.githubusercontent.com/iBotPeaches/Apktool/master/scripts/linux/apktool \
+	&& chmod +x /usr/local/bin/apktool.jar /usr/local/bin/apktool
+
 USER ambrose
