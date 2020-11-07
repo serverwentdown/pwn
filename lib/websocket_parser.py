@@ -84,8 +84,6 @@ if __name__ == '__main__':
     # Read request headers
     head, buf = read_http_headers(f, buf)
 
-    out = open(sys.argv[2], 'wb')
-
     # Read messages
     OPCODE_BINARY = 0x02
     OPCODE_TEXT = 0x02
